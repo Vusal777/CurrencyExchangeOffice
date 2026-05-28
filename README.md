@@ -48,9 +48,6 @@ CurrencyExchangeOffice
 |-- Database
 |   |-- SQL Server scripts for database schema and demo data
 |
-|-- Docs
-|   |-- Architecture description, user manual, and lab schedule mapping
-|
 |-- CurrencyExchangeOffice.sln
 |   |-- Visual Studio solution file
 ```
