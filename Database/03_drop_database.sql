@@ -1,0 +1,9 @@
+USE master;
+GO
+
+IF DB_ID('ExchangeOfficeDb') IS NOT NULL
+BEGIN
+    ALTER DATABASE ExchangeOfficeDb SET SINGLE_USER WITH ROLLBACK IMMEDIATE;
+    DROP DATABASE ExchangeOfficeDb;
+END
+GO

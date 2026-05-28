@@ -1,0 +1,308 @@
+<Window x:Class="ExchangeOffice.WpfClient.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="Currency Exchange Office" Height="720" Width="1040" MinHeight="620" MinWidth="900"
+        Background="#EEF3F8" FontFamily="Segoe UI" FontSize="13"
+        Loaded="Window_Loaded" Closing="Window_Closing">
+    <Window.Resources>
+        <SolidColorBrush x:Key="PageBackgroundBrush" Color="#EEF3F8" />
+        <SolidColorBrush x:Key="PanelBrush" Color="#FFFFFF" />
+        <SolidColorBrush x:Key="PrimaryBrush" Color="#2563EB" />
+        <SolidColorBrush x:Key="PrimaryDarkBrush" Color="#1D4ED8" />
+        <SolidColorBrush x:Key="AccentBrush" Color="#0F766E" />
+        <SolidColorBrush x:Key="WarningBrush" Color="#B45309" />
+        <SolidColorBrush x:Key="TextBrush" Color="#111827" />
+        <SolidColorBrush x:Key="MutedTextBrush" Color="#64748B" />
+        <SolidColorBrush x:Key="BorderBrushSoft" Color="#D6DEE8" />
+        <SolidColorBrush x:Key="InputBackgroundBrush" Color="#FBFCFE" />
+
+        <Style TargetType="Window">
+            <Setter Property="Background" Value="{StaticResource PageBackgroundBrush}" />
+        </Style>
+        <Style TargetType="TextBlock">
+            <Setter Property="Foreground" Value="{StaticResource TextBrush}" />
+        </Style>
+        <Style TargetType="GroupBox">
+            <Setter Property="Background" Value="{StaticResource PanelBrush}" />
+            <Setter Property="BorderBrush" Value="{StaticResource BorderBrushSoft}" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="Foreground" Value="{StaticResource TextBrush}" />
+            <Setter Property="FontWeight" Value="SemiBold" />
+            <Setter Property="Margin" Value="0,0,0,14" />
+            <Setter Property="Padding" Value="14" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="GroupBox">
+                        <Grid>
+                            <Border Margin="0,11,0,0"
+                                    Background="{TemplateBinding Background}"
+                                    BorderBrush="{TemplateBinding BorderBrush}"
+                                    BorderThickness="{TemplateBinding BorderThickness}"
+                                    CornerRadius="10">
+                                <ContentPresenter Margin="{TemplateBinding Padding}" ContentSource="Content" />
+                            </Border>
+                            <Border HorizontalAlignment="Left"
+                                    VerticalAlignment="Top"
+                                    Margin="14,0,0,0"
+                                    Padding="8,2"
+                                    Background="{StaticResource PageBackgroundBrush}"
+                                    CornerRadius="6">
+                                <ContentPresenter ContentSource="Header"
+                                                  RecognizesAccessKey="True"
+                                                  TextElement.Foreground="{StaticResource MutedTextBrush}"
+                                                  TextElement.FontWeight="SemiBold" />
+                            </Border>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style TargetType="Button">
+            <Setter Property="Background" Value="{StaticResource PrimaryBrush}" />
+            <Setter Property="Foreground" Value="White" />
+            <Setter Property="BorderBrush" Value="{StaticResource PrimaryDarkBrush}" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="Padding" Value="10,5" />
+            <Setter Property="FontWeight" Value="SemiBold" />
+            <Setter Property="Cursor" Value="Hand" />
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border x:Name="ButtonBorder"
+                                Background="{TemplateBinding Background}"
+                                BorderBrush="{TemplateBinding BorderBrush}"
+                                BorderThickness="{TemplateBinding BorderThickness}"
+                                CornerRadius="7"
+                                Padding="{TemplateBinding Padding}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center" />
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter TargetName="ButtonBorder" Property="Opacity" Value="0.88" />
+                            </Trigger>
+                            <Trigger Property="IsEnabled" Value="False">
+                                <Setter TargetName="ButtonBorder" Property="Opacity" Value="0.55" />
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+        <Style TargetType="TextBox">
+            <Setter Property="BorderBrush" Value="{StaticResource BorderBrushSoft}" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="Padding" Value="8,5" />
+            <Setter Property="MinHeight" Value="31" />
+            <Setter Property="Background" Value="{StaticResource InputBackgroundBrush}" />
+        </Style>
+        <Style TargetType="PasswordBox">
+            <Setter Property="BorderBrush" Value="{StaticResource BorderBrushSoft}" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="Padding" Value="8,5" />
+            <Setter Property="MinHeight" Value="31" />
+            <Setter Property="Background" Value="{StaticResource InputBackgroundBrush}" />
+        </Style>
+        <Style TargetType="ComboBox">
+            <Setter Property="BorderBrush" Value="{StaticResource BorderBrushSoft}" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="MinHeight" Value="31" />
+            <Setter Property="Background" Value="{StaticResource InputBackgroundBrush}" />
+        </Style>
+        <Style TargetType="DataGrid">
+            <Setter Property="GridLinesVisibility" Value="Horizontal" />
+            <Setter Property="HeadersVisibility" Value="Column" />
+            <Setter Property="RowBackground" Value="White" />
+            <Setter Property="AlternatingRowBackground" Value="#F7FAFC" />
+            <Setter Property="BorderBrush" Value="{StaticResource BorderBrushSoft}" />
+            <Setter Property="BorderThickness" Value="1" />
+            <Setter Property="FontFamily" Value="Segoe UI Emoji" />
+            <Setter Property="CanUserAddRows" Value="False" />
+            <Setter Property="CanUserDeleteRows" Value="False" />
+            <Setter Property="RowHeaderWidth" Value="0" />
+        </Style>
+        <Style TargetType="DataGridColumnHeader">
+            <Setter Property="Background" Value="#E8EEF6" />
+            <Setter Property="Foreground" Value="{StaticResource TextBrush}" />
+            <Setter Property="FontWeight" Value="SemiBold" />
+            <Setter Property="Padding" Value="8,6" />
+        </Style>
+    </Window.Resources>
+
+    <Grid Margin="18">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto" />
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <Border Grid.Row="0" Background="{StaticResource PanelBrush}" BorderBrush="{StaticResource BorderBrushSoft}" BorderThickness="1" CornerRadius="12" Padding="16" Margin="0,0,0,16">
+        <DockPanel LastChildFill="True">
+            <Button x:Name="LogoutButton" DockPanel.Dock="Right" Width="120" Height="34" Margin="12,0,0,0" Background="#B91C1C" BorderBrush="#991B1B" Click="Logout_Click">Logout</Button>
+            <StackPanel>
+                <TextBlock Text="Currency Exchange Office" FontSize="26" FontWeight="SemiBold" />
+                <TextBlock Text="Create a user, check rates, top up PLN, then buy or sell currency." Foreground="{StaticResource MutedTextBrush}" />
+            </StackPanel>
+        </DockPanel>
+        </Border>
+
+        <Grid Grid.Row="1">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="330" />
+                <ColumnDefinition Width="18" />
+                <ColumnDefinition Width="*" />
+            </Grid.ColumnDefinitions>
+
+            <StackPanel Grid.Column="0">
+                <GroupBox Header="1. User account" Padding="10" Margin="0,0,0,12">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="82" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <Border x:Name="LoggedInPanel" Grid.Row="0" Grid.ColumnSpan="2" Visibility="Collapsed" Margin="0,12,0,8" Padding="16" Background="#EFF6FF" BorderBrush="#BFDBFE" BorderThickness="1" CornerRadius="10" HorizontalAlignment="Center" MaxWidth="285">
+                            <StackPanel>
+                                <TextBlock x:Name="HelloTextBlock" FontSize="20" FontWeight="SemiBold" Foreground="#1D4ED8" TextAlignment="Center" />
+                                <TextBlock Text="You are logged in. Your balances and transactions are ready on the right." Foreground="{StaticResource MutedTextBrush}" TextWrapping="Wrap" Margin="0,6,0,0" TextAlignment="Center" />
+                            </StackPanel>
+                        </Border>
+                        <TextBlock x:Name="FullNameLabel" Text="Full name" VerticalAlignment="Center" Margin="0,0,8,8" />
+                        <TextBox x:Name="FullNameTextBox" Grid.Column="1" Text="Enter your fullname" Foreground="{StaticResource MutedTextBrush}" Margin="0,0,0,8" GotFocus="PlaceholderTextBox_GotFocus" LostFocus="PlaceholderTextBox_LostFocus" />
+                        <TextBlock x:Name="EmailLabel" Grid.Row="1" Text="Email" VerticalAlignment="Center" Margin="0,0,8,8" />
+                        <TextBox x:Name="EmailTextBox" Grid.Row="1" Grid.Column="1" Text="example@mail.com" Foreground="{StaticResource MutedTextBrush}" Margin="0,0,0,8" GotFocus="PlaceholderTextBox_GotFocus" LostFocus="PlaceholderTextBox_LostFocus" />
+                        <TextBlock x:Name="PasswordLabel" Grid.Row="2" Text="Password" VerticalAlignment="Center" Margin="0,0,8,8" />
+                        <Grid x:Name="PasswordInputGrid" Grid.Row="2" Grid.Column="1" Margin="0,0,0,8">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="64" />
+                            </Grid.ColumnDefinitions>
+                            <PasswordBox x:Name="PasswordBox" PasswordChanged="PasswordBox_PasswordChanged" />
+                            <TextBox x:Name="VisiblePasswordTextBox" Visibility="Collapsed" TextChanged="VisiblePasswordTextBox_TextChanged" />
+                            <Button x:Name="PasswordToggleButton" Grid.Column="1" Margin="6,0,0,0" Padding="4,2" Click="PasswordToggleButton_Click">Show</Button>
+                        </Grid>
+                        <StackPanel x:Name="AccountButtonsPanel" Grid.Row="3" Grid.ColumnSpan="2" Orientation="Horizontal">
+                            <Button Width="118" Height="30" Margin="0,0,8,0" Click="CreateUser_Click">Create user</Button>
+                            <Button Width="118" Height="30" Click="LoginUser_Click">Login</Button>
+                        </StackPanel>
+                        <TextBlock x:Name="ExistingUsersLabel" Grid.Row="4" Grid.ColumnSpan="2" Margin="0,8,0,4" Text="Existing users" FontWeight="SemiBold" />
+                        <ComboBox x:Name="UsersComboBox" Grid.Row="5" Grid.ColumnSpan="2" DisplayMemberPath="Email" Margin="0,0,0,8" SelectionChanged="UsersComboBox_SelectionChanged" />
+                        <TextBlock x:Name="UserTextBlock" Grid.Row="6" Grid.ColumnSpan="2" Margin="0,8,0,0" Text="No user logged in." TextWrapping="Wrap" />
+                    </Grid>
+                </GroupBox>
+
+                <GroupBox Header="2. Check currency rates" Padding="10" Margin="0,0,0,12">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="82" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="100" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <TextBlock Text="Currency" VerticalAlignment="Center" Margin="0,0,8,8" />
+                        <ComboBox x:Name="RateCurrencyComboBox" Grid.Column="1" IsEditable="False" Margin="0,0,8,8" />
+                        <Button Grid.Column="2" Background="{StaticResource AccentBrush}" BorderBrush="{StaticResource AccentBrush}" Click="CurrentRate_Click" Margin="0,0,0,8">Current</Button>
+                        <TextBlock Grid.Row="1" Text="Date" VerticalAlignment="Center" Margin="0,0,8,8" />
+                        <DatePicker x:Name="HistoricalDatePicker" Grid.Row="1" Grid.Column="1" Margin="0,0,8,8" />
+                        <Button Grid.Row="1" Grid.Column="2" Background="{StaticResource AccentBrush}" BorderBrush="{StaticResource AccentBrush}" Click="HistoricalRate_Click" Margin="0,0,0,8">History</Button>
+                        <TextBlock x:Name="RateTextBlock" Grid.Row="2" Grid.ColumnSpan="3" Text="Choose a currency and click Current or History." TextWrapping="Wrap" />
+                    </Grid>
+                </GroupBox>
+
+                <GroupBox Header="3. Exchange currency" Padding="10">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="82" />
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="100" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="Auto" />
+                        </Grid.RowDefinitions>
+                        <TextBlock Text="PLN top-up" VerticalAlignment="Center" Margin="0,0,8,8" />
+                        <TextBox x:Name="AmountTextBox" Grid.Column="1" Text="1000" Margin="0,0,8,8" />
+                        <Button Grid.Column="2" Background="{StaticResource AccentBrush}" BorderBrush="{StaticResource AccentBrush}" Click="TopUp_Click" Margin="0,0,0,8">Top up</Button>
+                        <TextBlock Grid.Row="1" Text="Currency" VerticalAlignment="Center" Margin="0,0,8,8" />
+                        <ComboBox x:Name="TradeCurrencyComboBox" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" IsEditable="False" Margin="0,0,0,8" />
+                        <TextBlock Grid.Row="2" Text="Currency amt." VerticalAlignment="Center" Margin="0,0,8,8" />
+                        <TextBox x:Name="TradeAmountTextBox" Grid.Row="2" Grid.Column="1" Text="100" Margin="0,0,8,8" />
+                        <StackPanel Grid.Row="2" Grid.Column="2" Orientation="Horizontal">
+                            <Button Width="46" Margin="0,0,8,0" Background="{StaticResource AccentBrush}" BorderBrush="{StaticResource AccentBrush}" Click="Buy_Click">Buy</Button>
+                            <Button Width="46" Background="#B45309" BorderBrush="#92400E" Click="Sell_Click">Sell</Button>
+                        </StackPanel>
+                        <Button Grid.Row="3" Grid.ColumnSpan="3" Margin="0,12,0,0" Click="Refresh_Click">Refresh balances and transactions</Button>
+                    </Grid>
+                </GroupBox>
+            </StackPanel>
+
+            <Grid Grid.Column="2">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="16" />
+                    <RowDefinition Height="190" />
+                    <RowDefinition Height="16" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+                <GroupBox Header="Current account value" Padding="10">
+                    <Grid>
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="150" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <ComboBox x:Name="BalanceCurrencyComboBox" IsEditable="False" Margin="0,0,8,0" SelectionChanged="BalanceCurrencyComboBox_SelectionChanged" />
+                        <TextBlock x:Name="AccountValueTextBlock" Grid.Column="1" VerticalAlignment="Center" Text="Login and choose currency." TextWrapping="Wrap" />
+                    </Grid>
+                </GroupBox>
+                <GroupBox Grid.Row="2" Padding="8">
+                    <GroupBox.Header>
+                        <TextBlock x:Name="BalancesHeaderTextBlock" Text="Balances" />
+                    </GroupBox.Header>
+                    <DataGrid x:Name="BalancesGrid" AutoGenerateColumns="False" IsReadOnly="True">
+                        <DataGrid.Columns>
+                            <DataGridTemplateColumn Header="Currency" Width="120">
+                                <DataGridTemplateColumn.CellTemplate>
+                                    <DataTemplate>
+                                        <StackPanel Orientation="Horizontal">
+                                            <Image Source="{Binding Flag}" Width="24" Height="16" Margin="0,0,8,0" />
+                                            <TextBlock Text="{Binding CurrencyCode}" VerticalAlignment="Center" />
+                                        </StackPanel>
+                                    </DataTemplate>
+                                </DataGridTemplateColumn.CellTemplate>
+                            </DataGridTemplateColumn>
+                            <DataGridTextColumn Header="Amount" Binding="{Binding Amount}" Width="*" />
+                            <DataGridTextColumn Header="PLN equivalent" Binding="{Binding PlnEquivalent}" Width="*" />
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </GroupBox>
+                <GroupBox Grid.Row="4" Header="Transactions" Padding="8">
+                    <DataGrid x:Name="TransactionsGrid" AutoGenerateColumns="False" IsReadOnly="True">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Date" Binding="{Binding CreatedAt}" Width="135" />
+                            <DataGridTextColumn Header="Type" Binding="{Binding Type}" Width="80" />
+                            <DataGridTextColumn Header="Currency" Binding="{Binding CurrencyCode}" Width="85" />
+                            <DataGridTextColumn Header="Currency amount" Binding="{Binding CurrencyAmount}" Width="*" />
+                            <DataGridTextColumn Header="PLN amount" Binding="{Binding PlnAmount}" Width="*" />
+                            <DataGridTextColumn Header="Rate" Binding="{Binding Rate}" Width="*" />
+                        </DataGrid.Columns>
+                    </DataGrid>
+                </GroupBox>
+            </Grid>
+        </Grid>
+
+        <TextBlock x:Name="StatusTextBlock" Grid.Row="2" Margin="0,12,0,0" TextWrapping="Wrap" />
+    </Grid>
+</Window>
